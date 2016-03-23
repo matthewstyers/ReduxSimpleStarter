@@ -1,9 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { Link } from 'react-router';
 import { createPost } from '../actions/index';
 
 class PostsNew extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
+  onSubmit(props) {
+    this.props.createPost(props)
+    .then(() => {
+      // blog post created
+      // call this.context.router.push with destination
+      this.context.router.push('/');
+    });
+  }
 
   render() {
     const {
@@ -14,7 +26,7 @@ class PostsNew extends Component {
     return (
       <div className='row'>
         <div className='col-lg-6 col-lg-offset-3'>
-          <form className='form' onSubmit={handleSubmit(this.props.createPost)}>
+          <form className='form' onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <h3>Create a New Post</h3>
             <fieldset className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
               <label className='sr-only'>Title</label>
