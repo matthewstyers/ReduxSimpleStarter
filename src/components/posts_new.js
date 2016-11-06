@@ -10,69 +10,51 @@ class PostsNew extends Component {
 
   onSubmit(props) {
     this.props.createPost(props)
-    .then(() => {
-      // blog post created
-      // call this.context.router.push with destination
-      this.context.router.push('/');
-    });
+      .then(() => {
+        // blog post created
+        // call this.context.router.push with destination
+        this.context.router.push('/');
+      });
   }
 
   render() {
-    const {
-      fields: {title, categories, content},
-      handleSubmit
-    } = this.props;
+    const {fields: {title, categories, content}, handleSubmit} = this.props;
 
     return (
       <div className='row'>
         <div className='col-lg-6 col-lg-offset-3'>
-          <form className='form' onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+          <form className='form' onSubmit={ handleSubmit(this.onSubmit.bind(this)) }>
             <h3>Create a New Post</h3>
-            <fieldset className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
+            <fieldset className={ `form-group ${title.touched && title.invalid ? 'has-danger' : ''}` }>
               <label className='sr-only'>Title</label>
-              <input
-                type="text"
-                placeholder="Title"
-                className="form-control"
-                {...title}
-              />
+              <input type="text" placeholder="Title" className="form-control" {...title} />
               <div className='text-help'>
-                {title.touched ? title.error : ''}
+                { title.touched ? title.error : '' }
               </div>
             </fieldset>
-            <fieldset className={`form-group ${categories.touched && categories.invalid ? 'has-danger' : ''}`}>
+            <fieldset className={ `form-group ${categories.touched && categories.invalid ? 'has-danger' : ''}` }>
               <label className='sr-only'>Categories</label>
-              <input
-                type="text"
-                placeholder="Categories"
-                className="form-control"
-                {...categories}
-              />
+              <input type="text" placeholder="Categories" className="form-control" {...categories} />
               <div className='text-help'>
-                {categories.touched ? categories.error : ''}
+                { categories.touched ? categories.error : '' }
               </div>
             </fieldset>
-            <fieldset className={`form-group ${content.touched && content.invalid ? 'has-danger' : ''}`}>
+            <fieldset className={ `form-group ${content.touched && content.invalid ? 'has-danger' : ''}` }>
               <label className='sr-only'>Content</label>
-              <textarea
-                placeholder="Content"
-                className="form-control"
-                {...content}
-              />
+              <textarea placeholder="Content" className="form-control" {...content} />
               <div className='text-help'>
-                {content.touched ? content.error : ''}
+                { content.touched ? content.error : '' }
               </div>
             </fieldset>
             <div className='btn-toolbar pull-xs-right'>
               <button type="submit" className='btn btn-primary-outline'>Submit</button>
-              <Link to='/' className='btn btn-danger-outline'>
-                Cancel
+              <Link to='/' className='btn btn-danger-outline'> Cancel
               </Link>
             </div>
           </form>
         </div>
       </div>
-    );
+      );
   }
 
 }
@@ -95,4 +77,6 @@ export default reduxForm({
   form: 'PostsNew',
   fields: ['title', 'categories', 'content'],
   validate
-}, null, { createPost })(PostsNew);
+}, null, {
+  createPost
+})(PostsNew);
